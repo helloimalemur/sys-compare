@@ -1,1 +1,1 @@
-# rcompare
+# sys-compare

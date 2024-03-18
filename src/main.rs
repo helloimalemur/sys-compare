@@ -1,7 +1,8 @@
 pub mod syscompare;
+mod localmode;
 
 use std::env::args;
-use crate::syscompare::{SysCompare};
+use crate::syscompare::{SysCompareApp};
 use crate::syscompare::CompareMode::Local2Local;
 
 fn main() {
@@ -11,18 +12,19 @@ fn main() {
     let app = match args.get(1) {
         None => {
             panic!("Missing Mode Argument");
-            SysCompare::default()
+            SysCompareApp::default()
         }
         Some(mode) => {
+            // app mode
             let m = mode.as_str();
-
             let app_mode = match m {
                 "local" => {Local2Local}
-                _ => {Local2Local}
+                _ => {panic!("Invalid MODE argument")}
             };
 
-            SysCompare::new(app_mode)
+            SysCompareApp::new(app_mode, args)
         }
     };
 
+    app.run()
 }

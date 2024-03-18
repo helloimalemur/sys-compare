@@ -4,22 +4,27 @@ pub enum CompareMode {
     Local2Local
 }
 
-pub struct SysCompare {
+pub struct SysCompareApp {
     mode: CompareMode,
-    left: Snapshot,
-    right: Snapshot,
+    args: Vec<String>
 }
 
 
-impl SysCompare {
-    pub fn new(mode: CompareMode) -> SysCompare {
-        SysCompare { mode: CompareMode::Local2Local, left: Default::default(), right: Default::default() }
+impl SysCompareApp {
+    pub fn new(mode: CompareMode, args: Vec<String>) -> SysCompareApp {
+        SysCompareApp { mode, args }
     }
-    pub fn compare() {}
+    pub fn run(&self) {
+        println!("running");
+    }
 }
 
-impl Default for SysCompare {
+impl Default for SysCompareApp {
     fn default() -> Self {
-        SysCompare { mode: CompareMode::Local2Local, left: Default::default(), right: Default::default() }
+        SysCompareApp { mode: CompareMode::Local2Local, args: vec![] }
     }
+}
+
+pub trait Comparer {
+    fn run(&self);
 }

@@ -34,7 +34,7 @@ impl CompareMode {
 
 impl Comparer for CompareMode {
     fn run(&mut self) {
-        let selector = match self.args.get(3) {
+        let selector = match self.args.get(4) {
             None => {"none"}
             Some(r) => { r }
         };
@@ -63,10 +63,15 @@ impl Comparer for CompareMode {
                     println!("{}", file);
                 }
             }
-            _ => {
+            "none" => {
                 println!("Created: {:?}", self.results.created.len());
                 println!("Deleted: {:?}", self.results.deleted.len());
                 println!("Changed: {:?}", self.results.changed.len());
+            },
+            _ => {
+                // println!("Created: {:?}", self.results.created.len());
+                // println!("Deleted: {:?}", self.results.deleted.len());
+                // println!("Changed: {:?}", self.results.changed.len());
             }
         }
     }

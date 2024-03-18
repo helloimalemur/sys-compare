@@ -3,7 +3,7 @@ mod localmode;
 
 use std::env::args;
 use crate::syscompare::{SysCompareApp};
-use crate::syscompare::CompareMode::Local2Local;
+use crate::syscompare::CompareMode::{Compare, Create};
 
 fn main() {
     let args: Vec<String> = args().collect();
@@ -18,7 +18,8 @@ fn main() {
             // app mode
             let m = mode.as_str();
             let app_mode = match m {
-                "local" => {Local2Local}
+                "create" => { Create },
+                "compare" => { Compare },
                 _ => {panic!("Invalid MODE argument")}
             };
 

@@ -3,7 +3,8 @@ use std::sync::{Arc, Mutex};
 use Fasching::snapshot::Snapshot;
 
 pub enum CompareMode {
-    Local2Local
+    Create,
+    Compare
 }
 
 pub struct SysCompareApp {
@@ -24,7 +25,7 @@ impl SysCompareApp {
 
 impl Default for SysCompareApp {
     fn default() -> Self {
-        SysCompareApp { mode: CompareMode::Local2Local, args: vec![], comparatives: Arc::new(Mutex::new(HashMap::new())) }
+        SysCompareApp { mode: CompareMode::Create, args: vec![], comparatives: Arc::new(Mutex::new(HashMap::new())) }
     }
 }
 

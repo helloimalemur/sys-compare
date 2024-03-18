@@ -47,19 +47,19 @@ impl Comparer for CompareMode {
         match selector {
             "created" => {
                 println!("Created: {:?}", self.results.created.len());
-                for file in self.results.created {
+                for file in self.results.created.iter() {
                     println!("{}", file);
                 }
             },
             "deleted" => {
                 println!("Deleted: {:?}", self.results.deleted.len());
-                for file in self.results.deleted {
+                for file in self.results.deleted.iter() {
                     println!("{}", file);
                 }
             },
             "changed" => {
                 println!("Changed: {:?}", self.results.changed.len());
-                for file in self.results.changed {
+                for file in self.results.changed.iter() {
                     println!("{}", file);
                 }
             }

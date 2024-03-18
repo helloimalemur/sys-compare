@@ -1,4 +1,4 @@
-use Fasching::create_snapshot;
+use Fasching::{create_snapshot, export_snapshot};
 use Fasching::hasher::HashType::BLAKE3;
 use Fasching::snapshot::Snapshot;
 use crate::syscompare::Comparer;
@@ -12,6 +12,10 @@ pub struct CreateMode {
 
 impl CreateMode {
     pub fn new(args: Vec<String>, in_path: String, out_path: String) -> CreateMode {
+        if out_path.replace("./", "").is_empty() {
+            panic!("Specify output file name")
+        }
+
         CreateMode { in_path, out_path, args, snapshot: Default::default() }
     }
 }
@@ -19,6 +23,7 @@ impl CreateMode {
 impl Comparer for CreateMode {
     fn run(&self) {
         let snapshot = create_snapshot(self.in_path.as_str(), BLAKE3);
-        println!("{}", snapshot.file_hashes.lock().unwrap().len())
+        println!("Total FileHash Entries {}", snapshot.file_hashes.lock().unwrap().len());
+        let _ = export_snapshot(snapshot, self.out_path.clone());
     }
 }

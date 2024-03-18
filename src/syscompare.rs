@@ -1,6 +1,8 @@
 use std::collections::HashMap;
+use std::env::args;
 use std::sync::{Arc, Mutex};
 use Fasching::snapshot::Snapshot;
+use crate::createmode::CreateMode;
 
 pub enum CompareMode {
     Create,
@@ -20,6 +22,17 @@ impl SysCompareApp {
     }
     pub fn run(&self) {
         println!("running");
+        match self.mode {
+            CompareMode::Create => {
+                let path = match self.args.get(2) {
+                    None => {panic!("Missing creation path as second argument")}
+                    Some(r) => {r}
+                };
+                let create = CreateMode::new(path);
+                create.run()
+            }
+            CompareMode::Compare => {}
+        }
     }
 }
 

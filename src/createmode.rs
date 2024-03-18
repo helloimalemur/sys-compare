@@ -1,13 +1,13 @@
 use Fasching::snapshot::Snapshot;
 use crate::syscompare::Comparer;
 
-struct CreateMode {
+pub struct CreateMode {
     path: String,
     snapshot: Snapshot
 }
 
 impl CreateMode {
-    fn new() -> CreateMode {
+    pub fn new(path: &String) -> CreateMode {
         CreateMode { path: "".to_string(), snapshot: Default::default() }
     }
 }

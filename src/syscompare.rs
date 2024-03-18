@@ -24,11 +24,15 @@ impl SysCompareApp {
         println!("running");
         match self.mode {
             CompareMode::Create => {
-                let path = match self.args.get(2) {
-                    None => {panic!("Missing creation path as second argument")}
+                let in_path = match self.args.get(2) {
+                    None => {panic!("Missing hash dir path as second argument")}
                     Some(r) => {r}
                 };
-                let create = CreateMode::new(path);
+                let out_path = match self.args.get(3) {
+                    None => {panic!("Missing output path as third argument")}
+                    Some(r) => {r}
+                };
+                let create = CreateMode::new(self.args.clone(), in_path.clone(), out_path.clone());
                 create.run()
             }
             CompareMode::Compare => {}

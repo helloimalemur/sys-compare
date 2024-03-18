@@ -26,16 +26,30 @@ impl SysCompareApp {
             CompareMode::Create => {
                 let in_path = match self.args.get(2) {
                     None => {panic!("Missing hash dir path as second argument")}
-                    Some(r) => {r}
+                    Some(r) => {
+                        if r.replace("./", "").is_empty() {
+                            panic!("Specify input file name")
+                        } else {
+                            r
+                        }
+                    }
                 };
                 let out_path = match self.args.get(3) {
                     None => {panic!("Missing output path as third argument")}
-                    Some(r) => {r}
+                    Some(r) => {
+                        if r.replace("./", "").is_empty() {
+                            panic!("Specify out path file name")
+                        } else {
+                            r
+                        }
+                    }
                 };
                 let create = CreateMode::new(self.args.clone(), in_path.clone(), out_path.clone());
                 create.run()
             }
-            CompareMode::Compare => {}
+            CompareMode::Compare => {
+
+            }
         }
     }
 }

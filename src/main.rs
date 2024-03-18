@@ -1,5 +1,6 @@
 pub mod syscompare;
-mod createmode;
+pub mod createmode;
+pub mod comparemode;
 
 use std::env::args;
 use crate::syscompare::{SysCompareApp};

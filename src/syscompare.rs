@@ -47,6 +47,7 @@ impl SysCompareApp {
                 };
 
                 let compare = CompareMode::new(self.args.clone(), left, right);
+                compare.run()
             }
         }
     }

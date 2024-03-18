@@ -37,6 +37,6 @@ impl Comparer for CompareMode {
         let results = compare_snapshots(self.left.clone(), self.right.clone()).unwrap();
         self.results = results.1;
         self.result_type = results.0;
-        println!("Result: {:?}", results.1)
+        println!("Result: {:?}", self.results);
     }
 }

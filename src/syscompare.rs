@@ -33,7 +33,7 @@ impl SysCompareApp {
                     None => {panic!("Missing output path as third argument")}
                     Some(r) => {not_empty(r)}
                 };
-                let create = CreateMode::new(self.args.clone(), in_path.clone(), out_path.clone());
+                let mut create = CreateMode::new(self.args.clone(), in_path.clone(), out_path.clone());
                 create.run()
             }
             SysCompareMode::Compare => {
@@ -46,7 +46,7 @@ impl SysCompareApp {
                     Some(r) => {not_empty(r)}
                 };
 
-                let compare = CompareMode::new(self.args.clone(), left, right);
+                let mut compare = CompareMode::new(self.args.clone(), left, right);
                 compare.run()
             }
         }
@@ -68,5 +68,5 @@ impl Default for SysCompareApp {
 }
 
 pub trait Comparer {
-    fn run(&self);
+    fn run(&mut self);
 }

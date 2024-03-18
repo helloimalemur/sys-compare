@@ -21,7 +21,7 @@ impl CreateMode {
 }
 
 impl Comparer for CreateMode {
-    fn run(&self) {
+    fn run(&mut self) {
         let snapshot = create_snapshot(self.in_path.as_str(), BLAKE3);
         println!("Total FileHash Entries {}", snapshot.file_hashes.lock().unwrap().len());
         let _ = export_snapshot(snapshot, self.out_path.clone());

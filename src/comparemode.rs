@@ -34,9 +34,40 @@ impl CompareMode {
 
 impl Comparer for CompareMode {
     fn run(&mut self) {
+        let selector = match self.args.get(3) {
+            None => {"none"}
+            Some(r) => { r }
+        };
+
         let results = compare_snapshots(self.left.clone(), self.right.clone()).unwrap();
         self.results = results.1;
         self.result_type = results.0;
-        println!("Result: {:?}", self.results);
+
+
+        match selector {
+            "created" => {
+                println!("Created: {:?}", self.results.created.len());
+                for file in self.results.created {
+                    println!("{}", file);
+                }
+            },
+            "deleted" => {
+                println!("Deleted: {:?}", self.results.deleted.len());
+                for file in self.results.deleted {
+                    println!("{}", file);
+                }
+            },
+            "changed" => {
+                println!("Changed: {:?}", self.results.changed.len());
+                for file in self.results.changed {
+                    println!("{}", file);
+                }
+            }
+            _ => {
+                println!("Created: {:?}", self.results.created.len());
+                println!("Deleted: {:?}", self.results.deleted.len());
+                println!("Changed: {:?}", self.results.changed.len());
+            }
+        }
     }
 }

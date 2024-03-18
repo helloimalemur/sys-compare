@@ -1,13 +1,14 @@
 use Fasching::{compare_snapshots, create_snapshot, import_snapshot};
 use Fasching::hasher::HashType::BLAKE3;
-use Fasching::snapshot::{Snapshot, SnapshotCompareResult};
+use Fasching::snapshot::{Snapshot, SnapshotChangeType, SnapshotCompareResult};
 use crate::syscompare::Comparer;
 
 pub struct CompareMode {
     left: Snapshot,
     right: Snapshot,
     args: Vec<String>,
-    results: SnapshotCompareResult
+    result_type: SnapshotChangeType,
+    results: SnapshotCompareResult,
 }
 
 impl CompareMode {
@@ -21,6 +22,7 @@ impl CompareMode {
             left,
             right,
             args,
+            result_type: SnapshotChangeType::None,
             results: SnapshotCompareResult {
                 created: vec![],
                 deleted: vec![],
@@ -31,8 +33,10 @@ impl CompareMode {
 }
 
 impl Comparer for CompareMode {
-    fn run(&self) {
+    fn run(&mut self) {
         let results = compare_snapshots(self.left.clone(), self.right.clone()).unwrap();
-
+        self.results = results.1;
+        self.result_type = results.0;
+        println!("Result: {:?}", results.1)
     }
 }

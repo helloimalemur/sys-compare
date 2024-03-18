@@ -4,7 +4,7 @@ pub mod comparemode;
 
 use std::env::args;
 use crate::syscompare::{SysCompareApp};
-use crate::syscompare::CompareMode::{Compare, Create};
+use crate::syscompare::SysCompareMode::{Compare, Create};
 
 fn main() {
     let args: Vec<String> = args().collect();

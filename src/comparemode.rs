@@ -13,7 +13,16 @@ impl CompareMode {
     pub fn new(args: Vec<String>, in_path: String, out_path: String) -> CompareMode {
 
 
-        CompareMode { in_path, out_path, args, snapshot: Default::default() }
+        CompareMode {
+            left: Default::default(),
+            right: Default::default(),
+            args,
+            results: SnapshotCompareResult {
+                created: vec![],
+                deleted: vec![],
+                changed: vec![],
+            },
+        }
     }
 }
 

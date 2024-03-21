@@ -17,7 +17,6 @@ impl CompareMode {
         let left = import_snapshot(left);
         let right = import_snapshot(right);
 
-
         CompareMode {
             left,
             right,
@@ -83,12 +82,15 @@ mod tests {
     use std::env;
     use std::fmt::format;
     use crate::comparemode::CompareMode;
+    use crate::createmode::CreateMode;
 
     #[test]
     fn compare_mode() {
         let user = whoami::username();
         let left = format!("/home/{}/test1", user);
         let right = format!("/home/{}/test2", user);
-        let cm = CompareMode::new(vec![], left, right);
+        let n1 = CreateMode::new(vec![], left.clone(), right.clone());
+
+        let cm = CompareMode::new(vec![], left.clone(), right.clone());
     }
 }

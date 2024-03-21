@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 Fasching = "0.1.16"
+whoami = "1.5.1"

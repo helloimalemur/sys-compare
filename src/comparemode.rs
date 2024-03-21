@@ -76,3 +76,15 @@ impl Comparer for CompareMode {
         }
     }
 }
+
+
+#[cfg(test)]
+mod tests {
+    use crate::comparemode::CompareMode;
+
+    #[test]
+    fn compare_mode() {
+        let cm = CompareMode::new(vec![], "".to_string(), "".to_string());
+
+    }
+}

@@ -80,11 +80,12 @@ impl Comparer for CompareMode {
 
 #[cfg(test)]
 mod tests {
+    use std::env;
     use crate::comparemode::CompareMode;
 
     #[test]
     fn compare_mode() {
+        let user = env::current_dir();
         let cm = CompareMode::new(vec![], "".to_string(), "".to_string());
-
     }
 }

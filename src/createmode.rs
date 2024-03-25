@@ -1,7 +1,9 @@
+use std::process::exit;
 use Fasching::{create_snapshot, export_snapshot};
 use Fasching::hasher::HashType;
 use Fasching::hasher::HashType::BLAKE3;
 use Fasching::snapshot::Snapshot;
+use crate::print_help;
 use crate::syscompare::Comparer;
 
 pub struct CreateMode {
@@ -14,7 +16,9 @@ pub struct CreateMode {
 impl CreateMode {
     pub fn new(args: Vec<String>, snapshot_path: String, root_path: String) -> CreateMode {
         if snapshot_path.replace("./", "").is_empty() {
-            panic!("Specify output file name")
+            println!("Specify output file name");
+            print_help();
+            exit(0);
         }
         let bind = root_path.clone();
         let rp = bind.as_str();

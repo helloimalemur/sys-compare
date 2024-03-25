@@ -70,7 +70,6 @@ impl Comparer for CompareMode {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use std::env;

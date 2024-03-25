@@ -1,9 +1,11 @@
 use std::collections::HashMap;
 use std::env::args;
+use std::process::exit;
 use std::sync::{Arc, Mutex};
 use Fasching::snapshot::Snapshot;
 use crate::comparemode::CompareMode;
 use crate::createmode::CreateMode;
+use crate::print_help;
 
 pub enum SysCompareMode {
     Create,
@@ -26,11 +28,19 @@ impl SysCompareApp {
         match self.mode {
             SysCompareMode::Create => {
                 let snapshot_path = match self.args.get(2) {
-                    None => {panic!("Missing hash dir path as second argument")}
+                    None => {
+                        println!("Missing hash dir path as second argument");
+                        print_help();
+                        exit(0);
+                    }
                     Some(r) => {not_empty(r)}
                 };
                 let root_dir = match self.args.get(3) {
-                    None => {panic!("Missing hash dir path as second argument")}
+                    None => {
+                        println!("Missing hash dir path as second argument");
+                        print_help();
+                        exit(0);
+                    }
                     Some(r) => {not_empty(r)}
                 };
                 let mut create = CreateMode::new(self.args.clone(), snapshot_path.clone(), root_dir.clone());
@@ -38,11 +48,19 @@ impl SysCompareApp {
             }
             SysCompareMode::Compare => {
                 let left = match self.args.get(2) {
-                    None => {panic!("Missing hash dir path as second argument")}
+                    None => {
+                        println!("Missing hash dir path as second argument");
+                        print_help();
+                        exit(0);
+                    }
                     Some(r) => {not_empty(r)}
                 };
                 let right = match self.args.get(3) {
-                    None => {panic!("Missing output path as third argument")}
+                    None => {
+                        println!("Missing output path as third argument");
+                        print_help();
+                        exit(0);
+                    }
                     Some(r) => {not_empty(r)}
                 };
 
@@ -55,7 +73,9 @@ impl SysCompareApp {
 
 fn not_empty(r: &String) -> String {
     if r.replace("./", "").is_empty() {
-        panic!("Specify input file name")
+        println!("Specify input file name");
+        print_help();
+        exit(0);
     } else {
         r.to_string()
     }

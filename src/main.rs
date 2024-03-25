@@ -3,17 +3,18 @@ pub mod createmode;
 pub mod comparemode;
 
 use std::env::args;
+use std::process::exit;
 use crate::syscompare::{SysCompareApp};
 use crate::syscompare::SysCompareMode::{Compare, Create};
 
 fn main() {
     let args: Vec<String> = args().collect();
-    println!("{:#?}", args);
+    // println!("{:#?}", args); // testing
 
     let app = match args.get(1) {
         None => {
-            panic!("Missing Mode Argument");
-            SysCompareApp::default()
+            print_help();
+            exit(0);
         }
         Some(mode) => {
             // app mode
@@ -21,7 +22,11 @@ fn main() {
             let app_mode = match m {
                 "create" => { Create },
                 "compare" => { Compare },
-                _ => {panic!("Invalid MODE argument")}
+                _ => {
+                    println!("Invalid MODE argument");
+                    print_help();
+                    exit(0);
+                }
             };
 
             SysCompareApp::new(app_mode, args)
@@ -29,6 +34,11 @@ fn main() {
     };
 
     app.run()
+}
+
+pub fn print_help() {
+    println!("### Create Snapshot\n## ./sys-compare create [snapshot] [root_dir]");
+    println!("### Compare Snapshots\n## ./sys-compare compare [.snap] [.snap] [created]|[deleted]|[changed]");
 }
 
 // #[cfg(test)]

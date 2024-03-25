@@ -1,11 +1,14 @@
 # sys-compare
 
-
 ### Create Snapshot
+## ./sys-compare create [snapshot] [root_dir]
 ```shell
-cargo run -- create /home/foxx/Documents/ /home/foxx/1.snapshot
+cargo run -- create ./test1.snap /home/foxx/Documents/
+cargo run -- create ./test2.snap /home/foxx/Documents/
 ```
 
+### Compare Snapshots
+## ./sys-compare compare [.snap] [.snap] [created]|[deleted]|[changed]
 ```shell
-cargo run -- compare /home/foxx/1.snapshot /home/foxx/2.snapshot created
+cargo run -- compare ./test1.snap ./test2.snap created
 ```

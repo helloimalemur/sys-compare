@@ -6,6 +6,6 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-Fasching = "0.1.17"
+Fasching = "0.1.18"
 #Fasching = {path = "../Fasching/"}
 whoami = "1.5.1"

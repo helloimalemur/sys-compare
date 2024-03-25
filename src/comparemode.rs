@@ -38,7 +38,10 @@ impl Comparer for CompareMode {
             Some(r) => { r }
         };
 
-        let results = compare_snapshots(self.left.clone(), self.right.clone()).unwrap();
+        let results = match compare_snapshots(self.left.clone(), self.right.clone()) {
+            Some(x) => x,
+            None => panic!("Error Comparing Snapshot"),
+        };
         self.results = results.1;
         self.result_type = results.0;
 

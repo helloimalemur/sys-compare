@@ -45,21 +45,15 @@ impl Comparer for CompareMode {
 
         match selector {
             "created" => {
-                for file in self.results.created.iter() {
-                    println!("{}", file);
-                }
+                self.results.created.iter().for_each(|e| println!("{e}"));
                 println!("Created: {:?}", self.results.created.len());
             },
             "deleted" => {
-                for file in self.results.deleted.iter() {
-                    println!("{}", file);
-                }
+                self.results.deleted.iter().for_each(|e| println!("{e}"));
                 println!("Deleted: {:?}", self.results.deleted.len());
             },
             "changed" => {
-                for file in self.results.changed.iter() {
-                    println!("{}", file);
-                }
+                self.results.changed.iter().for_each(|e| println!("{e}"));
                 println!("Changed: {:?}", self.results.changed.len());
             }
             "none" => {

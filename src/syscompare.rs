@@ -25,11 +25,15 @@ impl SysCompareApp {
         println!("running");
         match self.mode {
             SysCompareMode::Create => {
-                let path = match self.args.get(2) {
+                let snapshot_path = match self.args.get(2) {
                     None => {panic!("Missing hash dir path as second argument")}
                     Some(r) => {not_empty(r)}
                 };
-                let mut create = CreateMode::new(self.args.clone(), path.clone());
+                let root_dir = match self.args.get(2) {
+                    None => {panic!("Missing hash dir path as second argument")}
+                    Some(r) => {not_empty(r)}
+                };
+                let mut create = CreateMode::new(self.args.clone(), snapshot_path.clone(), root_dir.clone());
                 create.run()
             }
             SysCompareMode::Compare => {

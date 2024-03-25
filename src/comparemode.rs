@@ -91,13 +91,15 @@ mod tests {
         println!("{user}");
 
         let left = format!("/home/{}/test1", user);
+        let left_dir = format!("/home/{}/Downloads/", user);
         println!("{left}");
         let right = format!("/home/{}/test2", user);
+        let right_dir = format!("/home/{}/Downloads/", user);
         println!("{right}");
 
-        let mut n1 = CreateMode::new(vec![], left.clone());
+        let mut n1 = CreateMode::new(vec![], left.clone(), left_dir);
         n1.run();
-        let mut n2 = CreateMode::new(vec![], right.clone());
+        let mut n2 = CreateMode::new(vec![], right.clone(), right_dir);
         n2.run();
 
         let cm = CompareMode::new(vec![], left.clone(), right.clone());

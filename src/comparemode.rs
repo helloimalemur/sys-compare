@@ -91,10 +91,10 @@ mod tests {
         println!("{user}");
 
         let left = format!("/home/{}/test1", user);
-        let left_dir = format!("/home/{}/Downloads/", user);
+        let left_dir = format!("/home/{}/Documents/", user);
         println!("{left}");
         let right = format!("/home/{}/test2", user);
-        let right_dir = format!("/home/{}/Downloads/", user);
+        let right_dir = format!("/home/{}/Documents/", user);
         println!("{right}");
 
         let mut n1 = CreateMode::new(vec![], left.clone(), left_dir);

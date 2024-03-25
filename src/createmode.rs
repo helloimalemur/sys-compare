@@ -4,26 +4,26 @@ use Fasching::snapshot::Snapshot;
 use crate::syscompare::Comparer;
 
 pub struct CreateMode {
-    in_path: String,
-    out_path: String,
+    path: String,
     args: Vec<String>,
     snapshot: Snapshot
 }
 
 impl CreateMode {
-    pub fn new(args: Vec<String>, in_path: String, out_path: String) -> CreateMode {
-        if out_path.replace("./", "").is_empty() {
+    pub fn new(args: Vec<String>, path: String) -> CreateMode {
+        if path.replace("./", "").is_empty() {
             panic!("Specify output file name")
         }
 
-        CreateMode { in_path, out_path, args, snapshot: Default::default() }
+        CreateMode { args, path, snapshot: Default::default() }
     }
 }
 
 impl Comparer for CreateMode {
     fn run(&mut self) {
-        let snapshot = create_snapshot(self.in_path.as_str(), BLAKE3);
+        let snapshot = create_snapshot(self.path.as_str(), BLAKE3);
+        self.snapshot = snapshot.clone();
         println!("Total FileHash Entries {}", snapshot.file_hashes.lock().unwrap().len());
-        let _ = export_snapshot(snapshot, self.out_path.clone());
+        let _ = export_snapshot(self.snapshot.clone(), self.path.clone());
     }
 }

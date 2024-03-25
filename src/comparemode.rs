@@ -83,13 +83,22 @@ mod tests {
     use std::fmt::format;
     use crate::comparemode::CompareMode;
     use crate::createmode::CreateMode;
+    use crate::syscompare::Comparer;
 
     #[test]
     fn compare_mode() {
         let user = whoami::username();
+        println!("{user}");
+
         let left = format!("/home/{}/test1", user);
+        println!("{left}");
         let right = format!("/home/{}/test2", user);
-        let n1 = CreateMode::new(vec![], left.clone(), right.clone());
+        println!("{right}");
+
+        let mut n1 = CreateMode::new(vec![], left.clone());
+        n1.run();
+        let mut n2 = CreateMode::new(vec![], right.clone());
+        n2.run();
 
         let cm = CompareMode::new(vec![], left.clone(), right.clone());
     }

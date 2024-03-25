@@ -29,7 +29,7 @@ impl SysCompareApp {
                     None => {panic!("Missing hash dir path as second argument")}
                     Some(r) => {not_empty(r)}
                 };
-                let root_dir = match self.args.get(2) {
+                let root_dir = match self.args.get(3) {
                     None => {panic!("Missing hash dir path as second argument")}
                     Some(r) => {not_empty(r)}
                 };

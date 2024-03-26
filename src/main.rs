@@ -1,11 +1,11 @@
-pub mod syscompare;
-pub mod createmode;
 pub mod comparemode;
+pub mod createmode;
+pub mod syscompare;
 
+use crate::syscompare::SysCompareApp;
+use crate::syscompare::SysCompareMode::{Compare, Create};
 use std::env::args;
 use std::process::exit;
-use crate::syscompare::{SysCompareApp};
-use crate::syscompare::SysCompareMode::{Compare, Create};
 
 fn main() {
     let args: Vec<String> = args().collect();
@@ -20,8 +20,8 @@ fn main() {
             // app mode
             let m = mode.as_str();
             let app_mode = match m {
-                "create" => { Create },
-                "compare" => { Compare },
+                "create" => Create,
+                "compare" => Compare,
                 _ => {
                     println!("Invalid MODE argument");
                     print_help();

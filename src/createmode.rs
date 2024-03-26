@@ -1,16 +1,17 @@
+use crate::print_help;
+use crate::syscompare::Comparer;
 use std::process::exit;
-use Fasching::{create_snapshot, export_snapshot};
 use Fasching::hasher::HashType;
 use Fasching::hasher::HashType::BLAKE3;
 use Fasching::snapshot::Snapshot;
-use crate::print_help;
-use crate::syscompare::Comparer;
+use Fasching::{create_snapshot, export_snapshot};
 
 pub struct CreateMode {
     snapshot_path: String,
     root_path: String,
+    #[allow(unused)]
     args: Vec<String>,
-    snapshot: Snapshot
+    snapshot: Snapshot,
 }
 
 impl CreateMode {
@@ -22,7 +23,12 @@ impl CreateMode {
         }
         let bind = root_path.clone();
         let rp = bind.as_str();
-        CreateMode { args, snapshot_path, root_path, snapshot: create_snapshot(rp, HashType::MD5, vec![]) }
+        CreateMode {
+            args,
+            snapshot_path,
+            root_path,
+            snapshot: create_snapshot(rp, HashType::MD5, vec![]),
+        }
     }
 }
 
@@ -33,6 +39,6 @@ impl Comparer for CreateMode {
         if let Ok(e) = snapshot.file_hashes.lock() {
             println!("Total FileHash Entries {}", e.len());
         }
-        let _ = export_snapshot(self.snapshot.clone(), self.snapshot_path.clone(), true);
+        export_snapshot(self.snapshot.clone(), self.snapshot_path.clone(), true);
     }
 }

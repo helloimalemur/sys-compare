@@ -22,7 +22,7 @@ pub enum Commands {
         right: String,
         #[arg(short, long)]
         selection: Option<String>,
-        #[arg(short, long)]
+        #[arg(short)]
         count_only: Option<bool>,
     },
 }

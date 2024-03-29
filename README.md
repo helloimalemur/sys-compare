@@ -1,17 +1,37 @@
 # sys-compare
-#### work in progress
+
+### Modes
+```shell
+Usage: sys-compare <COMMAND>
+
+Commands:
+  create   
+  compare  
+  help     Print this message or the help of the given subcommand(s)
+
+Options:
+  -h, --help  Print help
+```
 
 ### Create Snapshot
-## ./sys-compare create [snapshot] [root_dir]
 ```shell
-cargo run -- create ./test1.snap /home/foxx/Documents/
-cargo run -- create ./test2.snap /home/foxx/Documents/
+Usage: sys-compare create --root-dir <ROOT_DIR> --output-path <OUTPUT_PATH>
+
+Options:
+  -r, --root-dir <ROOT_DIR>        
+  -o, --output-path <OUTPUT_PATH>  
+  -h, --help                       Print help
 ```
 
 ### Compare Snapshots
-## ./sys-compare compare [.snap] [.snap] [created]|[deleted]|[changed]
 ```shell
-cargo run -- compare ./test1.snap ./test2.snap created
+Usage: sys-compare compare [OPTIONS] --left <LEFT> --right <RIGHT>
+
+Options:
+  -l, --left <LEFT>            
+  -r, --right <RIGHT>          
+  -s, --selection <SELECTION>  
+  -h, --help                   Print help
 ```
 
 ## Development and Collaboration

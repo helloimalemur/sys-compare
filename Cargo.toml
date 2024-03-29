@@ -7,5 +7,6 @@ edition = "2021"
 
 [dependencies]
 Fasching = "0.1.19"
+clap = { version = "4.5.4", features = ["derive"] }
 #Fasching = {path = "../Fasching/"}
 whoami = "1.5.1"

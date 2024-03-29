@@ -5,6 +5,7 @@ use std::collections::HashMap;
 use std::process::exit;
 use std::sync::{Arc, Mutex};
 use Fasching::snapshot::Snapshot;
+use crate::options::Arguments;
 
 pub enum SysCompareMode {
     Create,
@@ -13,16 +14,16 @@ pub enum SysCompareMode {
 
 pub struct SysCompareApp {
     mode: SysCompareMode,
-    args: Vec<String>,
+    options: Arguments,
     #[allow(unused)]
     comparatives: Arc<Mutex<HashMap<String, Snapshot>>>,
 }
 
 impl SysCompareApp {
-    pub fn new(mode: SysCompareMode, args: Vec<String>) -> SysCompareApp {
+    pub fn new(mode: SysCompareMode, options: Arguments) -> SysCompareApp {
         SysCompareApp {
             mode,
-            args,
+            options,
             comparatives: Arc::new(Mutex::new(HashMap::new())),
         }
     }
@@ -30,67 +31,55 @@ impl SysCompareApp {
         println!("running");
         match self.mode {
             SysCompareMode::Create => {
-                let snapshot_path = match self.args.get(2) {
-                    None => {
-                        println!("Missing hash dir path as second argument");
-                        print_help();
-                        exit(0);
-                    }
-                    Some(r) => not_empty(r),
-                };
-                let root_dir = match self.args.get(3) {
-                    None => {
-                        println!("Missing hash dir path as second argument");
-                        print_help();
-                        exit(0);
-                    }
-                    Some(r) => not_empty(r),
-                };
-                let mut create =
-                    CreateMode::new(self.args.clone(), snapshot_path.clone(), root_dir.clone());
-                create.run()
+                // let mut create =
+                //     CreateMode::new(self.options.clone(), snapshot_path.clone(), root_dir.clone());
+                // create.run()
             }
             SysCompareMode::Compare => {
-                let left = match self.args.get(2) {
-                    None => {
-                        println!("Missing hash dir path as second argument");
-                        print_help();
-                        exit(0);
-                    }
-                    Some(r) => not_empty(r),
-                };
-                let right = match self.args.get(3) {
-                    None => {
-                        println!("Missing output path as third argument");
-                        print_help();
-                        exit(0);
-                    }
-                    Some(r) => not_empty(r),
-                };
+                // let left = match self.args.get(2) {
+                //     None => {
+                //         println!("Missing hash dir path as second argument");
+                //         print_help();
+                //         exit(0);
+                //     }
+                //     Some(r) => not_empty(r),
+                // };
+                // let right = match self.args.get(3) {
+                //     None => {
+                //         println!("Missing output path as third argument");
+                //         print_help();
+                //         exit(0);
+                //     }
+                //     Some(r) => not_empty(r),
+                // };
 
-                let mut compare = CompareMode::new(self.args.clone(), left, right);
-                compare.run()
+                // let mut compare = CompareMode::new(self.args.clone(), left, right);
+                // compare.run()
             }
         }
     }
 }
 
-fn not_empty(r: &String) -> String {
-    if r.replace("./", "").is_empty() {
-        println!("Specify input file name");
-        print_help();
-        exit(0);
-    } else {
-        r.to_string()
-    }
-}
+// fn not_empty(r: &String) -> String {
+//     if r.replace("./", "").is_empty() {
+//         println!("Specify input file name");
+//         print_help();
+//         exit(0);
+//     } else {
+//         r.to_string()
+//     }
+// }
 
 impl Default for SysCompareApp {
     fn default() -> Self {
         SysCompareApp {
             mode: SysCompareMode::Create,
-            args: vec![],
             comparatives: Arc::new(Mutex::new(HashMap::new())),
+            options: Arguments {
+                command: None,
+                input_path: None,
+                output_path: None,
+            },
         }
     }
 }

@@ -1,24 +1,27 @@
 use crate::syscompare::Comparer;
 use Fasching::snapshot::{Snapshot, SnapshotChangeType, SnapshotCompareResult};
 use Fasching::{compare_snapshots, import_snapshot};
+use crate::options::Arguments;
 
 pub struct CompareMode {
     left: Snapshot,
     right: Snapshot,
-    args: Vec<String>,
+    selection: Option<String>,
+    options: Arguments,
     result_type: SnapshotChangeType,
     results: SnapshotCompareResult,
 }
 
 impl CompareMode {
-    pub fn new(args: Vec<String>, left: String, right: String) -> CompareMode {
+    pub fn new(options: Arguments, left: String, right: String, selection: Option<String>) -> CompareMode {
         let left = import_snapshot(left);
         let right = import_snapshot(right);
 
         CompareMode {
             left,
             right,
-            args,
+            selection,
+            options,
             result_type: SnapshotChangeType::None,
             results: SnapshotCompareResult {
                 created: vec![],
@@ -31,9 +34,11 @@ impl CompareMode {
 
 impl Comparer for CompareMode {
     fn run(&mut self) {
-        let selector = match self.args.get(4) {
+        let selector = match &self.selection {
             None => "none",
-            Some(r) => r,
+            Some(r) => {
+                r.as_str()
+            },
         };
 
         let results = match compare_snapshots(self.left.clone(), self.right.clone()) {
@@ -90,11 +95,11 @@ mod tests {
         let right_dir = format!("/home/{}/Documents/", user);
         println!("{right}");
 
-        let mut n1 = CreateMode::new(vec![], left.clone(), left_dir);
+        let mut n1 = CreateMode::new(vec![], left.clone());
         n1.run();
-        let mut n2 = CreateMode::new(vec![], right.clone(), right_dir);
+        let mut n2 = CreateMode::new(vec![], right.clone());
         n2.run();
 
-        let cm = CompareMode::new(vec![], left.clone(), right.clone());
+        let cm = CompareMode::new(vec![], left.clone(), right.clone(), );
     }
 }

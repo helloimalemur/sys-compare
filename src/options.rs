@@ -1,16 +1,18 @@
 use clap::{Command, Parser, Subcommand};
-use crate::syscompare::SysCompareMode;
 
-#[derive(Parser)]
+
+#[derive(Parser, Clone, Debug)]
 pub struct Arguments {
     #[command(subcommand)]
     pub command: Option<Commands>,
+    #[arg(short, long)]
     pub input_path: Option<String>,
+    #[arg(short, long)]
     pub output_path: Option<String>,
-    pub show: Option<String>,
+
 }
 
-#[derive(Subcommand)]
+#[derive(Subcommand, Clone, Debug)]
 pub enum Commands {
     Create {
         #[arg(short, long)]
@@ -23,5 +25,7 @@ pub enum Commands {
         left: String,
         #[arg(short, long)]
         right: String,
+        #[arg(short, long)]
+        selection: Option<String>,
     },
 }

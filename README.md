@@ -37,6 +37,7 @@ Options:
   -l, --left <LEFT>            
   -r, --right <RIGHT>          
   -s, --selection <SELECTION>  
+  -c <COUNT_ONLY>              [possible values: true, false]
   -h, --help                   Print help
 ```
 

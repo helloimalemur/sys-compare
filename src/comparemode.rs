@@ -6,13 +6,14 @@ pub struct CompareMode {
     left: Snapshot,
     right: Snapshot,
     selection: Option<String>,
+    count_only: Option<bool>,
     options: Arguments,
     result_type: SnapshotChangeType,
     results: SnapshotCompareResult,
 }
 
 impl CompareMode {
-    pub fn new(options: Arguments, left: String, right: String, selection: Option<String>) -> CompareMode {
+    pub fn new(options: Arguments, left: String, right: String, selection: Option<String>, count_only: Option<bool>) -> CompareMode {
         let left = import_snapshot(left);
         let right = import_snapshot(right);
 
@@ -20,6 +21,7 @@ impl CompareMode {
             left,
             right,
             selection,
+            count_only,
             options,
             result_type: SnapshotChangeType::None,
             results: SnapshotCompareResult {
@@ -47,18 +49,31 @@ impl CompareMode {
         self.results = results.1;
         self.result_type = results.0;
 
+        macro_rules! print_if_not_empty {
+            ($ret:expr, $co:expr) => {if let Some(count_only) = $co {
+                    if count_only {
+                        println!("{}", $ret.len());
+                    } else {
+                        $ret.iter().for_each(|e| println!("{e}"));
+                        println!("Created: {:?}", $ret.len());
+                    }
+                } else {
+                    $ret.iter().for_each(|e| println!("{e}"));
+                    println!("Created: {:?}", $ret.len());
+                }
+            };
+        }
+
+
         match selector {
             "created" => {
-                self.results.created.iter().for_each(|e| println!("{e}"));
-                println!("Created: {:?}", self.results.created.len());
+                print_if_not_empty!(self.results.created, self.count_only);
             }
             "deleted" => {
-                self.results.deleted.iter().for_each(|e| println!("{e}"));
-                println!("Deleted: {:?}", self.results.deleted.len());
+                print_if_not_empty!(self.results.deleted, self.count_only);
             }
             "changed" => {
-                self.results.changed.iter().for_each(|e| println!("{e}"));
-                println!("Changed: {:?}", self.results.changed.len());
+                print_if_not_empty!(self.results.changed, self.count_only);
             }
             "none" => {
                 println!("Created: {:?}", self.results.created.len());
@@ -72,13 +87,18 @@ impl CompareMode {
             }
         }
     }
+    fn return_ret(&self) {
+
+    }
 }
+
+
+
 
 #[cfg(test)]
 mod tests {
     use crate::comparemode::CompareMode;
     use crate::createmode::CreateMode;
-    use crate::syscompare::Comparer;
     use std::env;
     use std::fmt::format;
 

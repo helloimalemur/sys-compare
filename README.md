@@ -1,6 +1,11 @@
 # sys-compare
 Check Filesystem Integrity via "Snapshots" containing hash of all files within specified directories.
 
+## Installation
+```shell
+cargo install --path ./
+```
+
 ### Modes
 ```shell
 Usage: sys-compare <COMMAND>

@@ -1,4 +1,5 @@
 # sys-compare
+Check Filesystem Integrity via "Snapshots" containing hash of all files within specified directories.
 
 ### Modes
 ```shell

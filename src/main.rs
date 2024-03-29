@@ -1,6 +1,5 @@
 pub mod comparemode;
 pub mod createmode;
-pub mod syscompare;
 mod options;
 
 
@@ -10,15 +9,12 @@ use clap::{FromArgMatches, Parser};
 use crate::comparemode::CompareMode;
 use crate::createmode::CreateMode;
 use crate::options::{Arguments, Commands};
-use crate::syscompare::Comparer;
 
 fn main() {
     let options = Arguments::parse();
     let movable = options.clone();
-    let args: Vec<String> = args().collect();
-    // println!("{:#?}", args); // testing
 
-    let app = match options.command {
+    let _app = match options.command {
         None => {}
         Some(Commands::Create { root_dir, output_path }) => {
             let mut create =
@@ -32,11 +28,6 @@ fn main() {
             compare.run()
         }
     };
-}
-
-pub fn print_help() {
-    println!("### Create Snapshot\n## ./sys-compare create [snapshot] [root_dir]");
-    println!("### Compare Snapshots\n## ./sys-compare compare [.snap] [.snap] [created]|[deleted]|[changed]");
 }
 
 // #[cfg(test)]

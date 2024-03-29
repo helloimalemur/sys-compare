@@ -1,13 +1,8 @@
-use crate::print_help;
-
 use std::process::exit;
 use std::sync::{Arc, Mutex};
-use Fasching::hasher::HashType;
 use Fasching::hasher::HashType::BLAKE3;
 use Fasching::snapshot::Snapshot;
 use Fasching::{create_snapshot, export_snapshot};
-use crate::options::Arguments;
-use crate::syscompare::Comparer;
 
 pub struct CreateMode {
     snapshot_path: String,

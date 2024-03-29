@@ -1,4 +1,3 @@
-use crate::syscompare::Comparer;
 use Fasching::snapshot::{Snapshot, SnapshotChangeType, SnapshotCompareResult};
 use Fasching::{compare_snapshots, import_snapshot};
 use crate::options::Arguments;
@@ -32,8 +31,8 @@ impl CompareMode {
     }
 }
 
-impl Comparer for CompareMode {
-    fn run(&mut self) {
+impl CompareMode {
+    pub(crate) fn run(&mut self) {
         let selector = match &self.selection {
             None => "none",
             Some(r) => {

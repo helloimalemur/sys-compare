@@ -18,9 +18,9 @@ fn main() {
             println!("Creating snapshot..");
             create.run()
         },
-        Commands::Compare { left, right, selection } => {
+        Commands::Compare { left, right, selection, count_only } => {
             println!("Running snapshot comparison..");
-            let mut compare = CompareMode::new(movable.clone(), left, right, selection);
+            let mut compare = CompareMode::new(movable.clone(), left, right, selection, count_only);
             compare.run()
         }
     };

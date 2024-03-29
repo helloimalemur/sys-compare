@@ -2,9 +2,6 @@ pub mod comparemode;
 pub mod createmode;
 mod options;
 
-
-use std::env::args;
-use std::process::exit;
 use clap::{FromArgMatches, Parser};
 use crate::comparemode::CompareMode;
 use crate::createmode::CreateMode;

@@ -11,8 +11,8 @@ cargo install --path ./
 Usage: sys-compare <COMMAND>
 
 Commands:
-  create   
-  compare  
+  create   Create a snapshot
+  compare  Compare two snapshots
   help     Print this message or the help of the given subcommand(s)
 
 Options:
@@ -24,8 +24,8 @@ Options:
 Usage: sys-compare create --root-dir <ROOT_DIR> --output-path <OUTPUT_PATH>
 
 Options:
-  -r, --root-dir <ROOT_DIR>        
-  -o, --output-path <OUTPUT_PATH>  
+  -r, --root-dir <ROOT_DIR>        Directory to create snapshot from
+  -o, --output-path <OUTPUT_PATH>  Snapshot output/save location
   -h, --help                       Print help
 ```
 
@@ -34,10 +34,10 @@ Options:
 Usage: sys-compare compare [OPTIONS] --left <LEFT> --right <RIGHT>
 
 Options:
-  -l, --left <LEFT>            
-  -r, --right <RIGHT>          
-  -s, --selection <SELECTION>  
-  -c <COUNT_ONLY>              [possible values: true, false]
+  -l, --left <LEFT>            left side of diff
+  -r, --right <RIGHT>          right side of diff
+  -s, --selection <SELECTION>  OPTIONAL: specify which change type specifically to return
+  -c <COUNT_ONLY>              OPTIONAL: when using selection specify to return count only or not [possible values: true, false]
   -h, --help                   Print help
 ```
 

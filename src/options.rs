@@ -4,12 +4,7 @@ use clap::{Parser, Subcommand};
 #[derive(Parser, Clone, Debug)]
 pub struct Arguments {
     #[command(subcommand)]
-    pub command: Option<Commands>,
-    #[arg(short, long)]
-    pub input_path: Option<String>,
-    #[arg(short, long)]
-    pub output_path: Option<String>,
-
+    pub command: Commands,
 }
 
 #[derive(Subcommand, Clone, Debug)]

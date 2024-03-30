@@ -1,3 +1,4 @@
+use anyhow::Error;
 use Fasching::snapshot::{Snapshot, SnapshotChangeType, SnapshotCompareResult};
 use Fasching::{compare_snapshots, import_snapshot};
 use crate::options::Arguments;
@@ -34,7 +35,7 @@ impl CompareMode {
 }
 
 impl CompareMode {
-    pub(crate) fn run(&mut self) {
+    pub(crate) fn run(&mut self) -> Result<(), Error> {
         let selector = match &self.selection {
             None => "none",
             Some(r) => {
@@ -65,7 +66,7 @@ impl CompareMode {
         }
 
 
-        match selector {
+        Ok(match selector {
             "created" => {
                 print_if_not_empty!(self.results.created, self.count_only);
             }
@@ -81,14 +82,11 @@ impl CompareMode {
                 println!("Changed: {:?}", self.results.changed.len());
             }
             _ => {
-                // println!("Created: {:?}", self.results.created.len());
-                // println!("Deleted: {:?}", self.results.deleted.len());
-                // println!("Changed: {:?}", self.results.changed.len());
+                println!("Created: {:?}", self.results.created.len());
+                println!("Deleted: {:?}", self.results.deleted.len());
+                println!("Changed: {:?}", self.results.changed.len());
             }
-        }
-    }
-    fn return_ret(&self) {
-
+        })
     }
 }
 

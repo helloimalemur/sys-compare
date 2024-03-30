@@ -1,5 +1,6 @@
 use std::process::exit;
 use std::sync::{Arc, Mutex};
+use anyhow::Error;
 use Fasching::hasher::HashType::BLAKE3;
 use Fasching::snapshot::Snapshot;
 use Fasching::{create_snapshot, export_snapshot};
@@ -35,12 +36,13 @@ impl CreateMode {
 }
 
 impl CreateMode {
-    pub fn run(&mut self) {
-        let snapshot = create_snapshot(self.root_path.as_str(), BLAKE3, vec![]).unwrap();
+    pub fn run(&mut self) -> Result<(), Error> {
+        let snapshot = create_snapshot(self.root_path.as_str(), BLAKE3, vec![])?;
         self.snapshot = snapshot.clone();
         if let Ok(e) = snapshot.file_hashes.lock() {
             println!("Total FileHash Entries {}", e.len());
         }
-        export_snapshot(self.snapshot.clone(), self.snapshot_path.clone(), true).unwrap();
+        export_snapshot(self.snapshot.clone(), self.snapshot_path.clone(), true)?;
+        Ok(())
     }
 }

@@ -36,11 +36,11 @@ impl CreateMode {
 
 impl CreateMode {
     pub fn run(&mut self) {
-        let snapshot = create_snapshot(self.root_path.as_str(), BLAKE3, vec![]);
+        let snapshot = create_snapshot(self.root_path.as_str(), BLAKE3, vec![]).unwrap();
         self.snapshot = snapshot.clone();
         if let Ok(e) = snapshot.file_hashes.lock() {
             println!("Total FileHash Entries {}", e.len());
         }
-        export_snapshot(self.snapshot.clone(), self.snapshot_path.clone(), true);
+        export_snapshot(self.snapshot.clone(), self.snapshot_path.clone(), true).unwrap();
     }
 }

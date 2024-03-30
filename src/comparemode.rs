@@ -14,8 +14,8 @@ pub struct CompareMode {
 
 impl CompareMode {
     pub fn new(options: Arguments, left: String, right: String, selection: Option<String>, count_only: Option<bool>) -> CompareMode {
-        let left = import_snapshot(left);
-        let right = import_snapshot(right);
+        let left = import_snapshot(left).unwrap_or_default();
+        let right = import_snapshot(right).unwrap_or_default();
 
         CompareMode {
             left,

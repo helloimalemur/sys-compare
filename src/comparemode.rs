@@ -1,6 +1,6 @@
 use anyhow::Error;
-use Fasching::snapshot::{Snapshot, SnapshotChangeType, SnapshotCompareResult};
-use Fasching::{compare_snapshots, import_snapshot};
+use filesystem_hashing::snapshot::{Snapshot, SnapshotChangeType, SnapshotCompareResult};
+use filesystem_hashing::{compare_snapshots, import_snapshot};
 use crate::options::Arguments;
 
 pub struct CompareMode {

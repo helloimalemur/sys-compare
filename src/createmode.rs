@@ -1,9 +1,9 @@
 use std::process::exit;
 use std::sync::{Arc, Mutex};
 use anyhow::Error;
-use Fasching::hasher::HashType::BLAKE3;
-use Fasching::snapshot::Snapshot;
-use Fasching::{create_snapshot, export_snapshot};
+use filesystem_hashing::hasher::HashType::BLAKE3;
+use filesystem_hashing::snapshot::Snapshot;
+use filesystem_hashing::{create_snapshot, export_snapshot};
 
 pub struct CreateMode {
     snapshot_path: String,

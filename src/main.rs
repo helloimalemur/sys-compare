@@ -2,23 +2,30 @@ pub mod comparemode;
 pub mod createmode;
 mod options;
 
-use clap::{FromArgMatches, Parser};
 use crate::comparemode::CompareMode;
 use crate::createmode::CreateMode;
 use crate::options::{Arguments, Commands};
+use clap::Parser;
 
 fn main() {
     let options = Arguments::parse();
     let movable = options.clone();
 
     let _app = match options.command {
-        Commands::Create { root_dir, output_path } => {
-            let mut create =
-                CreateMode::new(output_path, root_dir);
+        Commands::Create {
+            root_dir,
+            output_path,
+        } => {
+            let mut create = CreateMode::new(output_path, root_dir);
             println!("Creating snapshot..");
             create.run()
-        },
-        Commands::Compare { left, right, selection, count_only } => {
+        }
+        Commands::Compare {
+            left,
+            right,
+            selection,
+            count_only,
+        } => {
             if let Some(count_only) = count_only {
                 if !count_only {
                     println!("Running snapshot comparison..");

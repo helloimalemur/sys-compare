@@ -1,20 +1,27 @@
+use crate::options::Arguments;
 use anyhow::Error;
 use filesystem_hashing::snapshot::{Snapshot, SnapshotChangeType, SnapshotCompareResult};
 use filesystem_hashing::{compare_snapshots, import_snapshot};
-use crate::options::Arguments;
 
 pub struct CompareMode {
     left: Snapshot,
     right: Snapshot,
     selection: Option<String>,
     count_only: Option<bool>,
+    #[allow(unused)]
     options: Arguments,
     result_type: SnapshotChangeType,
     results: SnapshotCompareResult,
 }
 
 impl CompareMode {
-    pub fn new(options: Arguments, left: String, right: String, selection: Option<String>, count_only: Option<bool>) -> CompareMode {
+    pub fn new(
+        options: Arguments,
+        left: String,
+        right: String,
+        selection: Option<String>,
+        count_only: Option<bool>,
+    ) -> CompareMode {
         let left = import_snapshot(left).unwrap_or_default();
         let right = import_snapshot(right).unwrap_or_default();
 
@@ -38,9 +45,7 @@ impl CompareMode {
     pub(crate) fn run(&mut self) -> Result<(), Error> {
         let selector = match &self.selection {
             None => "none",
-            Some(r) => {
-                r.as_str()
-            },
+            Some(r) => r.as_str(),
         };
 
         let results = match compare_snapshots(self.left.clone(), self.right.clone()) {
@@ -51,7 +56,8 @@ impl CompareMode {
         self.result_type = results.0;
 
         macro_rules! print_if_not_empty {
-            ($ret:expr, $co:expr) => {if let Some(count_only) = $co {
+            ($ret:expr, $co:expr) => {
+                if let Some(count_only) = $co {
                     if count_only {
                         println!("{}", $ret.len());
                     } else {
@@ -65,8 +71,7 @@ impl CompareMode {
             };
         }
 
-
-        Ok(match selector {
+        match selector {
             "created" => {
                 print_if_not_empty!(self.results.created, self.count_only);
             }
@@ -86,12 +91,10 @@ impl CompareMode {
                 println!("Deleted: {:?}", self.results.deleted.len());
                 println!("Changed: {:?}", self.results.changed.len());
             }
-        })
+        };
+        Ok(())
     }
 }
-
-
-
 
 #[cfg(test)]
 mod tests {
@@ -117,6 +120,6 @@ mod tests {
         let mut n2 = CreateMode::new(vec![], right.clone());
         n2.run();
 
-        let cm = CompareMode::new(vec![], left.clone(), right.clone(), );
+        let cm = CompareMode::new(vec![], left.clone(), right.clone());
     }
 }

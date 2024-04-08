@@ -1,9 +1,9 @@
-use std::process::exit;
-use std::sync::{Arc, Mutex};
 use anyhow::Error;
 use filesystem_hashing::hasher::HashType::BLAKE3;
 use filesystem_hashing::snapshot::Snapshot;
 use filesystem_hashing::{create_snapshot, export_snapshot};
+use std::process::exit;
+use std::sync::{Arc, Mutex};
 
 pub struct CreateMode {
     snapshot_path: String,
@@ -18,7 +18,7 @@ impl CreateMode {
             exit(0);
         }
         let bind = root_path.clone();
-        let rp = bind.as_str();
+        let _rp = bind.as_str();
 
         CreateMode {
             snapshot_path,

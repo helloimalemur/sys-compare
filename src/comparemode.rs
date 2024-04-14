@@ -97,9 +97,9 @@ impl CompareMode {
 mod tests {
     use crate::comparemode::CompareMode;
     use crate::createmode::CreateMode;
+    use crate::options::{Arguments, Commands};
     use std::env;
     use std::fmt::format;
-    use crate::options::{Arguments, Commands};
 
     #[test]
     fn compare_mode() {

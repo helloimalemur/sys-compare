@@ -1,7 +1,7 @@
 [package]
 name = "sys-compare"
 description = "Track Filesystem Integrity via 'Snapshots' containing hash of all files within specified directories."
-version = "0.1.5"
+version = "0.1.6"
 edition = "2021"
 authors = ["james@koonts.net"]
 license = "MIT"
@@ -11,7 +11,7 @@ readme = "README.md"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-filesystem-hashing = "0.2.4"
+filesystem-hashing = "0.2.6"
 clap = { version = "4.5.4", features = ["derive"] }
 whoami = "1.5.1"
 anyhow = "1.0.81"

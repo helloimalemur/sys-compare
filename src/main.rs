@@ -9,7 +9,6 @@ use clap::Parser;
 
 fn main() {
     let options = Arguments::parse();
-    let movable = options.clone();
 
     let _app = match options.command {
         Commands::Create {
@@ -31,7 +30,7 @@ fn main() {
                     println!("Running snapshot comparison..");
                 }
             }
-            let mut compare = CompareMode::new(movable.clone(), left, right, selection, count_only);
+            let mut compare = CompareMode::new(left, right, selection, count_only);
             compare.run()
         }
     };

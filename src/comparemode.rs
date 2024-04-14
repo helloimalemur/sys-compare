@@ -1,22 +1,20 @@
-use crate::options::Arguments;
 use anyhow::Error;
 use filesystem_hashing::snapshot::{Snapshot, SnapshotChangeType, SnapshotCompareResult};
 use filesystem_hashing::{compare_snapshots, import_snapshot};
 
+#[derive(Debug)]
 pub struct CompareMode {
     left: Snapshot,
     right: Snapshot,
     selection: Option<String>,
     count_only: Option<bool>,
     #[allow(unused)]
-    options: Arguments,
     result_type: SnapshotChangeType,
     results: SnapshotCompareResult,
 }
 
 impl CompareMode {
     pub fn new(
-        options: Arguments,
         left: String,
         right: String,
         selection: Option<String>,
@@ -30,7 +28,6 @@ impl CompareMode {
             right,
             selection,
             count_only,
-            options,
             result_type: SnapshotChangeType::None,
             results: SnapshotCompareResult {
                 created: vec![],
@@ -102,6 +99,7 @@ mod tests {
     use crate::createmode::CreateMode;
     use std::env;
     use std::fmt::format;
+    use crate::options::{Arguments, Commands};
 
     #[test]
     fn compare_mode() {
@@ -115,11 +113,17 @@ mod tests {
         let right_dir = format!("/home/{}/Documents/", user);
         println!("{right}");
 
-        let mut n1 = CreateMode::new(vec![], left.clone());
-        n1.run();
-        let mut n2 = CreateMode::new(vec![], right.clone());
-        n2.run();
+        let mut n1 = CreateMode::new(left.clone(), "/etc".to_string());
+        let _ = n1.run();
+        let mut n2 = CreateMode::new(right.clone(), "/etc".to_string());
+        let _ = n2.run();
 
-        let cm = CompareMode::new(vec![], left.clone(), right.clone());
+        let cm = CompareMode::new(left, right, None, None);
+
+        // println!("{:?}", cm);
+        assert!(cm.left.file_hashes.lock().unwrap().len() > 0);
+        assert!(cm.right.file_hashes.lock().unwrap().len() > 0);
+        // assert!(cm.results. > 0);
+        // todo()! finish writing tests
     }
 }

@@ -25,7 +25,11 @@ impl CreateMode {
             root_path,
             snapshot: Snapshot {
                 file_hashes: Arc::new(Mutex::new(Default::default())),
-                black_list: vec![],
+                black_list: vec![
+                    "/dev".to_string(),
+                    "/proc".to_string(),
+                    "/tmp".to_string(),
+                ],
                 root_path: "".to_string(),
                 hash_type: BLAKE3,
                 uuid: "".to_string(),

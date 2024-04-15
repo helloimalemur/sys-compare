@@ -25,11 +25,7 @@ impl CreateMode {
             root_path,
             snapshot: Snapshot {
                 file_hashes: Arc::new(Mutex::new(Default::default())),
-                black_list: vec![
-                    "/dev".to_string(),
-                    "/proc".to_string(),
-                    "/tmp".to_string(),
-                ],
+                black_list: vec![],
                 root_path: "".to_string(),
                 hash_type: BLAKE3,
                 uuid: "".to_string(),
@@ -41,7 +37,11 @@ impl CreateMode {
 
 impl CreateMode {
     pub fn run(&mut self) -> Result<(), Error> {
-        let snapshot = create_snapshot(self.root_path.as_str(), BLAKE3, vec![])?;
+        let snapshot = create_snapshot(self.root_path.as_str(), BLAKE3, vec![
+            "/dev".to_string(),
+            "/proc".to_string(),
+            "/tmp".to_string(),
+        ])?;
         self.snapshot = snapshot.clone();
         if let Ok(e) = snapshot.file_hashes.lock() {
             println!("Total FileHash Entries {}", e.len());

@@ -41,6 +41,31 @@ Options:
   -h, --help                   Print help
 ```
 
+## Example output
+```shell
+$ sys-compare create -r /etc -o ~/test.snapshot
+Creating snapshot..
+Total FileHash Entries 1891
+
+$ sudo touch /etc/2
+
+$ sys-compare create -r /etc -o ~/test2.snapshot
+Creating snapshot..
+Total FileHash Entries 1892
+
+$ sys-compare compare -l ~/test.snapshot -r ~/test2.snapshot
+Created: 1
+Deleted: 0
+Changed: 0
+
+$ sys-compare compare -l ~/test.snapshot -r ~/test2.snapshot -s created
+/etc/2
+Created: 1
+
+$ sys-compare compare -l ~/test.snapshot -r ~/test2.snapshot -s created -c true
+1
+```
+
 ## Development and Collaboration
 #### Feel free to open a pull request, please run the following prior to your submission please!
     echo "Run clippy"; cargo clippy -- -D clippy::all

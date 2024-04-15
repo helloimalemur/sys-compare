@@ -41,6 +41,7 @@ impl CreateMode {
             "/dev".to_string(),
             "/proc".to_string(),
             "/tmp".to_string(),
+            "/sys".to_string(),
         ])?;
         self.snapshot = snapshot.clone();
         if let Ok(e) = snapshot.file_hashes.lock() {

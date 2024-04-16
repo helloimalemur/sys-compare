@@ -53,30 +53,30 @@ impl CompareMode {
         self.result_type = results.0;
 
         macro_rules! print_if_not_empty {
-            ($ret:expr, $co:expr) => {
+            ($ret:expr, $co:expr, $msg:expr) => {
                 if let Some(count_only) = $co {
                     if count_only {
                         println!("{}", $ret.len());
                     } else {
                         $ret.iter().for_each(|e| println!("{e}"));
-                        println!("Created: {:?}", $ret.len());
+                        println!("{}: {:?}", $msg, $ret.len());
                     }
                 } else {
                     $ret.iter().for_each(|e| println!("{e}"));
-                    println!("Created: {:?}", $ret.len());
+                    println!("{}: {:?}", $msg, $ret.len());
                 }
             };
         }
 
         match selector {
             "created" => {
-                print_if_not_empty!(self.results.created, self.count_only);
+                print_if_not_empty!(self.results.created, self.count_only, "Created");
             }
             "deleted" => {
-                print_if_not_empty!(self.results.deleted, self.count_only);
+                print_if_not_empty!(self.results.deleted, self.count_only, "Deleted");
             }
             "changed" => {
-                print_if_not_empty!(self.results.changed, self.count_only);
+                print_if_not_empty!(self.results.changed, self.count_only, "Changed");
             }
             "none" => {
                 println!("Created: {:?}", self.results.created.len());

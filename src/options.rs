@@ -29,7 +29,7 @@ pub enum Commands {
         #[arg(short, long)]
         selection: Option<String>,
         /// OPTIONAL: when using selection specify to return count only or not
-        #[arg(short)]
+        #[arg(short, default_value="false", num_args = 0..2)]
         count_only: Option<bool>,
     },
 }

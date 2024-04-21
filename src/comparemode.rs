@@ -62,8 +62,7 @@ impl CompareMode {
                         println!("{}: {:?}", $msg, $ret.len());
                     }
                 } else {
-                    $ret.iter().for_each(|e| println!("{e}"));
-                    println!("{}: {:?}", $msg, $ret.len());
+                    println!("{}", $ret.len());
                 }
             };
         }

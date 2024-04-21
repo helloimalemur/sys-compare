@@ -13,9 +13,9 @@ fn main() {
     let _app = match options.command {
         Commands::Create {
             root_dir,
-            output_path,
+            output_path, verbose,
         } => {
-            let mut create = CreateMode::new(output_path, root_dir);
+            let mut create = CreateMode::new(output_path, root_dir, verbose);
             println!("Creating snapshot..");
             create.run()
         }
@@ -24,13 +24,14 @@ fn main() {
             right,
             selection,
             count_only,
+            verbose,
         } => {
             if let Some(count_only) = count_only {
                 if !count_only {
                     println!("Running snapshot comparison..");
                 }
             }
-            let mut compare = CompareMode::new(left, right, selection, count_only);
+            let mut compare = CompareMode::new(left, right, selection, count_only, verbose);
             compare.run()
         }
     };

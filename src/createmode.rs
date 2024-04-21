@@ -12,7 +12,7 @@ pub struct CreateMode {
 }
 
 impl CreateMode {
-    pub fn new(snapshot_path: String, root_path: String) -> CreateMode {
+    pub fn new(snapshot_path: String, root_path: String, verbose: Option<bool>) -> CreateMode {
         if snapshot_path.replace("./", "").is_empty() {
             println!("Specify output file name");
             exit(0);
@@ -37,12 +37,16 @@ impl CreateMode {
 
 impl CreateMode {
     pub fn run(&mut self) -> Result<(), Error> {
-        let snapshot = create_snapshot(self.root_path.as_str(), BLAKE3, vec![
-            "/dev".to_string(),
-            "/proc".to_string(),
-            "/tmp".to_string(),
-            "/sys".to_string(),
-        ])?;
+        let snapshot = create_snapshot(
+            self.root_path.as_str(),
+            BLAKE3,
+            vec![
+                "/dev".to_string(),
+                "/proc".to_string(),
+                "/tmp".to_string(),
+                "/sys".to_string(),
+            ],
+        )?;
         self.snapshot = snapshot.clone();
         if let Ok(e) = snapshot.file_hashes.lock() {
             println!("Total FileHash Entries {}", e.len());

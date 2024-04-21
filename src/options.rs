@@ -16,20 +16,26 @@ pub enum Commands {
         /// Snapshot output/save location
         #[arg(short, long)]
         output_path: String,
+        /// OPTIONAL: Increase verbosity
+        #[arg(short, default_value="false", num_args = 0..2)]
+        verbose: Option<bool>,
     },
     /// Compare two snapshots
     Compare {
-        /// left side of diff
+        /// Left side of diff
         #[arg(short, long)]
         left: String,
-        /// right side of diff
+        /// Right side of diff
         #[arg(short, long)]
         right: String,
-        /// OPTIONAL: specify which change type specifically to return
+        /// OPTIONAL: Wpecify which change type specifically to return
         #[arg(short, long)]
         selection: Option<String>,
-        /// OPTIONAL: when using selection specify to return count only or not
+        /// OPTIONAL: When using selection specify to return count only or not
         #[arg(short, default_value="false", num_args = 0..2)]
         count_only: Option<bool>,
+        /// OPTIONAL: Increase verbosity
+        #[arg(short, default_value="false", num_args = 0..2)]
+        verbose: Option<bool>,
     },
 }

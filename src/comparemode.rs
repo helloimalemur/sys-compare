@@ -19,6 +19,7 @@ impl CompareMode {
         right: String,
         selection: Option<String>,
         count_only: Option<bool>,
+        verbose: Option<bool>,
     ) -> CompareMode {
         let left = import_snapshot(left).unwrap_or_default();
         let right = import_snapshot(right).unwrap_or_default();
@@ -112,12 +113,12 @@ mod tests {
         let right_dir = format!("/home/{}/Documents/", user);
         println!("{right}");
 
-        let mut n1 = CreateMode::new(left.clone(), "/etc".to_string());
+        let mut n1 = CreateMode::new(left.clone(), "/etc".to_string(), );
         let _ = n1.run();
-        let mut n2 = CreateMode::new(right.clone(), "/etc".to_string());
+        let mut n2 = CreateMode::new(right.clone(), "/etc".to_string(), );
         let _ = n2.run();
 
-        let cm = CompareMode::new(left, right, None, None);
+        let cm = CompareMode::new(left, right, None, None, );
 
         // println!("{:?}", cm);
         assert!(cm.left.file_hashes.lock().unwrap().len() > 0);

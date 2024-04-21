@@ -62,7 +62,7 @@ $ sys-compare compare -l ~/test.snapshot -r ~/test2.snapshot -s created
 /etc/2
 Created: 1
 
-$ sys-compare compare -l ~/test.snapshot -r ~/test2.snapshot -s created -c true
+$ sys-compare compare -l ~/test.snapshot -r ~/test2.snapshot -s created -c
 1
 ```
 

@@ -11,7 +11,7 @@ readme = "README.md"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-filesystem-hashing = "0.3.1"
+filesystem-hashing = "0.3.4"
 clap = { version = "4.5.4", features = ["derive"] }
 whoami = "1.5.1"
 anyhow = "1.0.82"

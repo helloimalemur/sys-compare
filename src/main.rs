@@ -17,7 +17,8 @@ fn main() {
         } => {
             let mut create = CreateMode::new(output_path, root_dir, verbose);
             println!("Creating snapshot..");
-            create.run()
+            println!("{:?}", verbose);
+            create.run(verbose)
         }
         Commands::Compare {
             left,
@@ -32,7 +33,7 @@ fn main() {
                 }
             }
             let mut compare = CompareMode::new(left, right, selection, count_only, verbose);
-            compare.run()
+            compare.run(verbose)
         }
     };
 }

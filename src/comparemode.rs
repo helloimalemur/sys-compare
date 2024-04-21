@@ -11,6 +11,7 @@ pub struct CompareMode {
     #[allow(unused)]
     result_type: SnapshotChangeType,
     results: SnapshotCompareResult,
+    verbose: bool
 }
 
 impl CompareMode {
@@ -21,8 +22,13 @@ impl CompareMode {
         count_only: Option<bool>,
         verbose: Option<bool>,
     ) -> CompareMode {
-        let left = import_snapshot(left).unwrap_or_default();
-        let right = import_snapshot(right).unwrap_or_default();
+        let mut verbosity = false;
+        if let Some(_v) = verbose {
+            verbosity = true
+        }
+
+        let left = import_snapshot(left, verbosity).unwrap_or_default();
+        let right = import_snapshot(right, verbosity).unwrap_or_default();
 
         CompareMode {
             left,
@@ -35,18 +41,19 @@ impl CompareMode {
                 deleted: vec![],
                 changed: vec![],
             },
+            verbose: verbosity
         }
     }
 }
 
 impl CompareMode {
-    pub(crate) fn run(&mut self) -> Result<(), Error> {
+    pub(crate) fn run(&mut self, verbose: Option<bool>) -> Result<(), Error> {
         let selector = match &self.selection {
             None => "none",
             Some(r) => r.as_str(),
         };
 
-        let results = match compare_snapshots(self.left.clone(), self.right.clone()) {
+        let results = match compare_snapshots(self.left.clone(), self.right.clone(), self.verbose) {
             Some(x) => x,
             None => panic!("Error Comparing Snapshot"),
         };

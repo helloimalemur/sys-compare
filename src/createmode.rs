@@ -14,14 +14,11 @@ pub struct CreateMode {
 
 impl CreateMode {
     pub fn new(snapshot_path: String, root_path: String, verbose: Option<bool>) -> CreateMode {
+        #[allow(unused)]
         let mut verbosity = false;
         match verbose {
-            Some(_v) => {
-                verbosity = true
-            },
-            None => {
-                verbosity = false
-            }
+            Some(_v) => verbosity = true,
+            None => verbosity = false,
         }
 
         if snapshot_path.replace("./", "").is_empty() {
@@ -49,14 +46,11 @@ impl CreateMode {
 
 impl CreateMode {
     pub fn run(&mut self, verbose: Option<bool>) -> Result<(), Error> {
+        #[allow(unused)]
         let mut verbosity = false;
         match verbose {
-            Some(v) => {
-                verbosity = v
-            },
-            None => {
-                verbosity = true
-            }
+            Some(v) => verbosity = v,
+            None => verbosity = true,
         }
         let snapshot = create_snapshot(
             self.root_path.as_str(),
@@ -67,13 +61,18 @@ impl CreateMode {
                 "/tmp".to_string(),
                 "/sys".to_string(),
             ],
-            verbosity
+            verbosity,
         )?;
         self.snapshot = snapshot.clone();
         if let Ok(e) = snapshot.file_hashes.lock() {
             println!("Total FileHash Entries {}", e.len());
         }
-        export_snapshot(self.snapshot.clone(), self.snapshot_path.clone(), true, self.verbose)?;
+        export_snapshot(
+            self.snapshot.clone(),
+            self.snapshot_path.clone(),
+            true,
+            self.verbose,
+        )?;
         Ok(())
     }
 }

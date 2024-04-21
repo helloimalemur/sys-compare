@@ -11,7 +11,7 @@ pub struct CompareMode {
     #[allow(unused)]
     result_type: SnapshotChangeType,
     results: SnapshotCompareResult,
-    verbose: bool
+    verbose: bool,
 }
 
 impl CompareMode {
@@ -41,13 +41,13 @@ impl CompareMode {
                 deleted: vec![],
                 changed: vec![],
             },
-            verbose: verbosity
+            verbose: verbosity,
         }
     }
 }
 
 impl CompareMode {
-    pub(crate) fn run(&mut self, verbose: Option<bool>) -> Result<(), Error> {
+    pub(crate) fn run(&mut self, _verbose: Option<bool>) -> Result<(), Error> {
         let selector = match &self.selection {
             None => "none",
             Some(r) => r.as_str(),
@@ -120,12 +120,12 @@ mod tests {
         let right_dir = format!("/home/{}/Documents/", user);
         println!("{right}");
 
-        let mut n1 = CreateMode::new(left.clone(), "/etc".to_string(), );
+        let mut n1 = CreateMode::new(left.clone(), "/etc".to_string());
         let _ = n1.run();
-        let mut n2 = CreateMode::new(right.clone(), "/etc".to_string(), );
+        let mut n2 = CreateMode::new(right.clone(), "/etc".to_string());
         let _ = n2.run();
 
-        let cm = CompareMode::new(left, right, None, None, );
+        let cm = CompareMode::new(left, right, None, None);
 
         // println!("{:?}", cm);
         assert!(cm.left.file_hashes.lock().unwrap().len() > 0);

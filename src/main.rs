@@ -13,11 +13,11 @@ fn main() {
     let _app = match options.command {
         Commands::Create {
             root_dir,
-            output_path, verbose,
+            output_path,
+            verbose,
         } => {
             let mut create = CreateMode::new(output_path, root_dir, verbose);
             println!("Creating snapshot..");
-            println!("{:?}", verbose);
             create.run(verbose)
         }
         Commands::Compare {

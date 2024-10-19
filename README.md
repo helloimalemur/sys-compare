@@ -1,5 +1,5 @@
 # sys-compare
-Check Filesystem Integrity via "Snapshots" containing hash of all files within specified directories.
+Store Filesystem Integrity information via 'Snapshots' which contain a HashMap of the files and their corresponding hash signature from a specified directory.
 
 ## Installation
 ```shell

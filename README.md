@@ -3,7 +3,7 @@ Store Filesystem Integrity information via 'Snapshots' which contain a HashMap o
 
 ## Installation
 ```shell
-cargo install --path ./
+cargo install sys-compare
 ```
 
 ### Modes

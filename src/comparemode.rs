@@ -47,7 +47,7 @@ impl CompareMode {
 }
 
 impl CompareMode {
-    pub(crate) fn run(&mut self, _verbose: Option<bool>) -> Result<(), Error> {
+    pub fn run(&mut self, _verbose: Option<bool>) -> Result<(), Error> {
         let selector = match &self.selection {
             None => "none",
             Some(r) => r.as_str(),

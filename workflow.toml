@@ -3,5 +3,5 @@ run = "ls -lah" ## command string
 [1]
 run = "pwd"
 [2]
-run = "cargo install --path ./ -f"
+run = "cargo build"
 #

@@ -1,0 +1,6 @@
+[0] ## name must be integer and correspond to the order in which commands are run
+run = "ls -lah" ## command string
+[1]
+run = "pwd"
+[2]
+run = "cargo build"

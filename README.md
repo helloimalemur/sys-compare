@@ -67,6 +67,4 @@ $ sys-compare compare -l ~/test.snapshot -r ~/test2.snapshot -s created -c
 ```
 
 ## Development and Collaboration
-#### Feel free to open a pull request, please run the following prior to your submission please!
-    echo "Run clippy"; cargo clippy -- -D clippy::all
-    echo "Format source code"; cargo fmt -- --check
+#### Feel free to open a pull request
